@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from "react";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function getUrlParams(url) {
   try {
@@ -212,25 +214,36 @@ function App() {
   }, []);
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
-      <div
-        ref={containerRef}
-        style={{ width: "100%", height: "100%" }}
-      />
-      <div
+    <div className="min-h-screen text-blue-50 flex flex-col">
+      <Navbar/>
+
+      <main className="flex-1 p-4 ">
+        <h2 className="text-lg font-semibold text-blue-700 mb-3">
+          Streamyy
+        </h2>
+
+        <div className="mb-4">
+          <span className="inline-block text-blue-500 mr-2 font-medium">
+            Status: 
+          </span>
+          <span data-testid = "zego-status text-green-400">
+            {status}
+          </span>
+        </div>
+
+        <div id="zero-root" ref={containerRef} 
         style={{
-          position: "fixed",
-          bottom: 10,
-          left: 10,
-          padding: "6px 12px",
-          background: "#000",
-          color: "#fff",
-          borderRadius: "6px",
-          fontSize: "12px",
-        }}
-      >
-        Status: {status}
-      </div>
+          width: "100%",
+          height:"70vh",
+          minHeight:"400px",
+          border: "1px solid #e5e7eb",
+          borderRadius: 8,
+          overflow: "hidden",
+        }}> 
+            {/* ZegoUIKitPrebuilt will render the video call UI here */}
+        </div>
+      </main>
+      <Footer/>
     </div>
   );
 }
