@@ -28,8 +28,7 @@ const Navbar = () => {
 
               {/* Brand name */}
               <span className="text-xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Hexagon Digital Services
-              </span>
+                Streamyy              </span>
             </div>
           </div>
 

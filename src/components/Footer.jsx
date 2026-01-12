@@ -158,7 +158,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center mb-4 md:mb-0">
               <p className="text-gray-500 text-sm">
-                © {new Date().getFullYear()} ZegoCloud. All rights reserved.
+                © {new Date().getFullYear()} Banglorian. All rights reserved.
               </p>
             </div>
             <div className="flex space-x-6 text-sm text-gray-500">
@@ -189,7 +189,7 @@ const Footer = () => {
       </div>
 
      
-      <style jsx>{`
+      <style>{`
         @keyframes borderFlow {
           0% {
             background-position: 0% 50%;

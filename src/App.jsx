@@ -91,25 +91,9 @@ function App() {
 
         let kitToken = null;
 
-        try {
-          setStatus("generating token (server)");
-          const resp = await fetch(
-            `/api/kit-token?roomID=${encodeURIComponent(
-              roomID
-            )}&userName=${encodeURIComponent(userName)}`
-          );
+        
 
-          if (resp.ok) {
-            const json = await resp.json();
-            if (json?.kitToken) {
-              kitToken = json.kitToken;
-            }
-          }
-        } catch (err) {
-          console.log("No API kit-token found, falling back:", err);
-        }
-
-        if (!kitToken && rawServerSecret) {
+        if (  rawServerSecret) {
           try {
             setStatus("generating token (client)");
             kitToken = await tryGenerateKitTokenClientSide(
@@ -125,6 +109,17 @@ function App() {
             return;
           }
         }
+
+        console.log("Container:", containerRef.current);
+console.log("RoomID:", roomID);
+console.log("UserID:", userID);
+console.log("UserName:", userName);
+console.log("Role:", role);
+console.log("KitToken length:", kitToken?.length);
+console.log("AppID:", rawAppID);
+console.log("Server Secret:", rawServerSecret);
+
+
 
         if (!kitToken) {
           setStatus("Token generation failed");
@@ -167,11 +162,20 @@ function App() {
           },
 
           sharedLinks: [
-            {
-              name: "Join as Host",
-              url: window.location.protocol + "//" + window.location.host + window.location.pathname + "?roomID=" + encodeURIComponent(roomID) + "&role=Audience",
-            },
-          ],
+  {
+    name: role === window.ZegoUIKitPrebuilt.Host ? "Join as Audience" : "Join as Host",
+    url:
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      window.location.pathname +
+      "?roomID=" +
+      encodeURIComponent(roomID) +
+      "&role=" +
+      (role === window.ZegoUIKitPrebuilt.Host ? "Audience" : "Host"),
+  },
+],
+
           ...(role === window.ZegoUIKitPrebuilt.Host ? hostConfig : {}),
         }
 
@@ -226,12 +230,12 @@ function App() {
           <span className="inline-block text-blue-500 mr-2 font-medium">
             Status: 
           </span>
-          <span data-testid = "zego-status text-green-400">
+          <span data-testid = "zego-status" className="text-green-400">
             {status}
           </span>
         </div>
 
-        <div id="zero-root" ref={containerRef} 
+        <div id="zego-root" ref={containerRef} 
         style={{
           width: "100%",
           height:"70vh",
